@@ -8,11 +8,16 @@
     <string name="previous">Previous</string>
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="add">Add</string>
 
     <string name="WORKOUT_DAY_KEY">Day</string>
+    <string name="WORKOUT_MUSCLE_KEY">MuscleType</string>
     <string name="FIREBASE_URL">https://workoutdatabase-c73bc-default-rtdb.firebaseio.com/</string>
-    <string name="add">Add</string>
     <string name="legs">LEGS</string>
     <string name="pull">PULL</string>
     <string name="push">PUSH</string>
+    <string name="set">Set</string>
+    <string name="delete">Delete</string>
+    <string name="yes">Yes</string>
+    <string name="edit">Edit</string>
 </resources>
