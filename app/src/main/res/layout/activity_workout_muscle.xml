@@ -19,11 +19,12 @@
         app:srcCompat="@android:drawable/ic_input_add" />
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/muscle_type"
         android:textAlignment="center"
         android:textSize="40sp"
-        android:text="@string/WORKOUT_MUSCLE_KEY"
         app:layout_constraintBottom_toTopOf="@+id/muscleRecycleView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

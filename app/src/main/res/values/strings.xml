@@ -20,4 +20,6 @@
     <string name="delete">Delete</string>
     <string name="yes">Yes</string>
     <string name="edit">Edit</string>
+    <string name="muscle_group">Muscle group:</string>
+    <string name="muscle_type">Muscle Type</string>
 </resources>
