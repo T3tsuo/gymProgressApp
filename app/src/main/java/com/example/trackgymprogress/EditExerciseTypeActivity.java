@@ -11,30 +11,31 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.UUID;
-
-public class EditMuscleActivity extends AppCompatActivity {
+public class EditExerciseTypeActivity extends AppCompatActivity {
     private FirebaseDatabase FBDatabase;
-    private DatabaseReference muscleDatabase;
+    private ExerciseTypeClass exerciseType;
     private WorkoutDayClass workoutDay;
     private MuscleClass muscleType;
+    private DatabaseReference exerciseTypeDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_muscle);
+        setContentView(R.layout.activity_edit_exercise_type);
         Intent intent = getIntent();
         workoutDay = (WorkoutDayClass) intent.getSerializableExtra(getString(R.string.WORKOUT_DAY_KEY));
         muscleType = (MuscleClass)
                 intent.getSerializableExtra(getString(R.string.WORKOUT_MUSCLE_KEY));
+        exerciseType = (ExerciseTypeClass)
+                intent.getSerializableExtra(getString(R.string.EXERCISE_TYPE_KEY));
         initFB();
-        EditText muscleInput = findViewById(R.id.muscleInput);
-        muscleInput.setText(muscleType.getMuscleType());
+        EditText exerciseTypeInput = findViewById(R.id.exerciseTypeInput);
+        exerciseTypeInput.setText(exerciseType.getExerciseType());
         Button deleteBtn = findViewById(R.id.deleteBtn);
         Button setBtn =  findViewById(R.id.setBtn);
 
         setBtn.setOnClickListener(view -> {
-            String input = muscleInput.getText().toString();
+            String input = exerciseTypeInput.getText().toString();
             if (!input.equals("")) {
                 updateDataToFB(input);
                 finish();
@@ -50,15 +51,17 @@ public class EditMuscleActivity extends AppCompatActivity {
 
     public void initFB() {
         FBDatabase = FirebaseDatabase.getInstance(getString(R.string.FIREBASE_URL));
-        muscleDatabase = FBDatabase.getReference(workoutDay.getDay()).child(getString(R.string.WORKOUT_MUSCLE_KEY));;
+        exerciseTypeDatabase = FBDatabase.getReference(workoutDay.getDay())
+                .child(getString(R.string.WORKOUT_MUSCLE_KEY))
+                .child(muscleType.getUuid()).child(getString(R.string.EXERCISE_TYPE_KEY));
     }
 
     public void updateDataToFB(String data) {
-        MuscleClass muscle = new MuscleClass(data, muscleType.getUuid());
-        muscleDatabase.child(muscleType.getUuid()).setValue(muscle);
+        ExerciseTypeClass exercise = new ExerciseTypeClass(data, exerciseType.getUuid());
+        exerciseTypeDatabase.child(exerciseType.getUuid()).setValue(exercise);
     }
 
     public void removeFromDB() {
-        muscleDatabase.child(muscleType.getUuid()).removeValue();
+        exerciseTypeDatabase.child(exerciseType.getUuid()).removeValue();
     }
 }

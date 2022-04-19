@@ -11,8 +11,17 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:windowSoftInputMode="stateHidden"
-        android:theme="@style/Theme.TrackGymProgress">
+        android:theme="@style/Theme.TrackGymProgress"
+        android:windowSoftInputMode="stateHidden">
+        <activity
+            android:name=".EditExerciseTypeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddExerciseTypeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ExerciseTypeActivity"
+            android:exported="false" />
         <activity
             android:name=".AddMuscleActivity"
             android:exported="false" />

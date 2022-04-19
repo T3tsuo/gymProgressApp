@@ -12,6 +12,7 @@
 
     <string name="WORKOUT_DAY_KEY">Day</string>
     <string name="WORKOUT_MUSCLE_KEY">MuscleType</string>
+    <string name="EXERCISE_TYPE_KEY">ExerciseType</string>
     <string name="FIREBASE_URL">https://workoutdatabase-c73bc-default-rtdb.firebaseio.com/</string>
     <string name="legs">LEGS</string>
     <string name="pull">PULL</string>
@@ -22,4 +23,6 @@
     <string name="edit">Edit</string>
     <string name="muscle_group">Muscle group:</string>
     <string name="muscle_type">Muscle Type</string>
+    <string name="exercise_group">Exercise group</string>
+    <string name="exercise_type">Exercise Type:</string>
 </resources>
