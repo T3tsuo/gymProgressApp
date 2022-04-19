@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
 import java.util.UUID;
 
 public class EditMuscleActivity extends AppCompatActivity {
@@ -50,12 +51,13 @@ public class EditMuscleActivity extends AppCompatActivity {
 
     public void initFB() {
         FBDatabase = FirebaseDatabase.getInstance(getString(R.string.FIREBASE_URL));
-        muscleDatabase = FBDatabase.getReference(workoutDay.getDay()).child(getString(R.string.WORKOUT_MUSCLE_KEY));;
+        muscleDatabase = FBDatabase.getReference(workoutDay.getDay()).child(getString(R.string.WORKOUT_MUSCLE_KEY));
     }
 
     public void updateDataToFB(String data) {
-        MuscleClass muscle = new MuscleClass(data, muscleType.getUuid());
-        muscleDatabase.child(muscleType.getUuid()).setValue(muscle);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("muscleType", data);
+        muscleDatabase.child(muscleType.getUuid()).updateChildren(map);
     }
 
     public void removeFromDB() {

@@ -11,6 +11,8 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
+
 public class EditExerciseTypeActivity extends AppCompatActivity {
     private FirebaseDatabase FBDatabase;
     private ExerciseTypeClass exerciseType;
@@ -57,8 +59,9 @@ public class EditExerciseTypeActivity extends AppCompatActivity {
     }
 
     public void updateDataToFB(String data) {
-        ExerciseTypeClass exercise = new ExerciseTypeClass(data, exerciseType.getUuid());
-        exerciseTypeDatabase.child(exerciseType.getUuid()).setValue(exercise);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("exerciseType", data);
+        exerciseTypeDatabase.child(exerciseType.getUuid()).updateChildren(map);
     }
 
     public void removeFromDB() {
