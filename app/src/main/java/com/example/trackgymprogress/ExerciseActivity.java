@@ -20,16 +20,17 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class ExerciseTypeActivity extends AppCompatActivity {
+public class ExerciseActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private ActivityResultLauncher<Intent> activityResultLauncher;
     private WorkoutDayClass workoutDay;
     private MuscleClass muscleType;
+    private ExerciseTypeClass exerciseType;
     private FirebaseDatabase FBDatabase;
-    Query exerciseTypeDatabase;
-    private ExerciseTypeAdapter adapter;
-    private ArrayList<ExerciseTypeClass> exerciseTypeList = new ArrayList<>();
+    Query exerciseDatabase;
+    private ExerciseAdapter adapter;
+    private ArrayList<ExerciseClass> exerciseList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,43 +39,46 @@ public class ExerciseTypeActivity extends AppCompatActivity {
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == Activity.RESULT_OK) {
-                        getExerciseTypes();
+                        getExercise();
                     }
                 });
-        setContentView(R.layout.activity_exercise_type);
+        setContentView(R.layout.activity_exercise);
         FloatingActionButton fabAdd = findViewById(R.id.fabAdd);
-        recyclerView = findViewById(R.id.exerciseTypeRecycleView);
+        recyclerView = findViewById(R.id.exercisesRecycleView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         Intent intent = getIntent();
         workoutDay = (WorkoutDayClass) intent.getSerializableExtra(getString(R.string.WORKOUT_DAY_KEY));
-        muscleType = (MuscleClass)
-                intent.getSerializableExtra(getString(R.string.WORKOUT_MUSCLE_KEY));
+        muscleType = (MuscleClass) intent.getSerializableExtra(getString(R.string.WORKOUT_MUSCLE_KEY));
+        exerciseType = (ExerciseTypeClass) intent.getSerializableExtra(getString(R.string.EXERCISE_TYPE_KEY));
         initFB();
-        getExerciseTypes();
+        getExercise();
 
         fabAdd.setOnClickListener(view -> {
-            Intent i = new Intent(ExerciseTypeActivity.this, AddExerciseTypeActivity.class);
+            Intent i = new Intent(ExerciseActivity.this, AddExerciseActivity.class);
             i.putExtra(getString(R.string.WORKOUT_DAY_KEY), workoutDay);
             i.putExtra(getString(R.string.WORKOUT_MUSCLE_KEY), muscleType);
+            i.putExtra(getString(R.string.EXERCISE_TYPE_KEY), exerciseType);
             activityResultLauncher.launch(i);
         });
     }
 
     public void initFB() {
         FBDatabase = FirebaseDatabase.getInstance(getString(R.string.FIREBASE_URL));
-        exerciseTypeDatabase = FBDatabase.getReference(workoutDay.getDay())
+        exerciseDatabase = FBDatabase.getReference(workoutDay.getDay())
                 .child(getString(R.string.WORKOUT_MUSCLE_KEY))
-                .child(muscleType.getUuid()).child(getString(R.string.EXERCISE_TYPE_KEY)).orderByValue();
+                .child(muscleType.getUuid()).child(getString(R.string.EXERCISE_TYPE_KEY))
+                .child(exerciseType.getUuid()).child(getString(R.string.EXERCISE_KEY))
+                .orderByValue();
     }
 
-    public void getExerciseTypes() {
-        exerciseTypeDatabase.addValueEventListener(new ValueEventListener() {
+    public void getExercise() {
+        exerciseDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                exerciseTypeList.clear();
-                for (DataSnapshot exerciseType: snapshot.getChildren()) {
-                    exerciseTypeList.add(exerciseType.getValue(ExerciseTypeClass.class));
+                exerciseList.clear();
+                for (DataSnapshot exercise: snapshot.getChildren()) {
+                    exerciseList.add(exercise.getValue(ExerciseClass.class));
                 }
                 setAdapter();
             }
@@ -85,7 +89,8 @@ public class ExerciseTypeActivity extends AppCompatActivity {
     }
 
     public void setAdapter() {
-        adapter = new ExerciseTypeAdapter(exerciseTypeList, workoutDay, muscleType, activityResultLauncher);
+        adapter = new ExerciseAdapter(exerciseList, workoutDay, muscleType, exerciseType,
+                activityResultLauncher);
         recyclerView.setAdapter(adapter);
     }
 }

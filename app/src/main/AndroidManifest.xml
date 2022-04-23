@@ -14,6 +14,15 @@
         android:theme="@style/Theme.TrackGymProgress"
         android:windowSoftInputMode="stateHidden">
         <activity
+            android:name=".EditExerciseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddExerciseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ExerciseActivity"
+            android:exported="false" />
+        <activity
             android:name=".EditExerciseTypeActivity"
             android:exported="false" />
         <activity

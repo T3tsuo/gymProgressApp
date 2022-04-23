@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditExerciseActivity">
+
+    <TextView
+        android:id="@+id/nameLabel"
+        android:textSize="26sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/weightLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/nameInput"
+        android:text="@string/name"
+        />
+
+    <EditText
+        android:id="@+id/nameInput"
+        android:inputType="text"
+        android:layout_width="171dp"
+        android:layout_height="55dp"
+        android:text=""
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/weightInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/nameLabel"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/weightLabel"
+        android:textSize="26sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/nameLabel"
+        app:layout_constraintBottom_toTopOf="@id/setsLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/weightInput"
+        android:text="@string/weight"
+        />
+
+    <EditText
+        android:id="@+id/weightInput"
+        android:inputType="text"
+        android:layout_width="171dp"
+        android:layout_height="55dp"
+        android:text=""
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/setsInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/weightLabel"
+        app:layout_constraintTop_toBottomOf="@id/nameInput" />
+
+    <TextView
+        android:id="@+id/setsLabel"
+        android:textSize="26sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/weightLabel"
+        app:layout_constraintBottom_toTopOf="@id/repsLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/setsInput"
+        android:text="@string/sets"
+        />
+
+    <EditText
+        android:id="@+id/setsInput"
+        android:inputType="text"
+        android:layout_width="171dp"
+        android:layout_height="55dp"
+        android:text=""
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/repsInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/setsLabel"
+        app:layout_constraintTop_toBottomOf="@id/weightInput" />
+
+    <TextView
+        android:id="@+id/repsLabel"
+        android:textSize="26sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/setsLabel"
+        app:layout_constraintBottom_toTopOf="@id/deleteBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/repsInput"
+        android:text="@string/reps"
+        />
+
+    <EditText
+        android:id="@+id/repsInput"
+        android:inputType="text"
+        android:layout_width="171dp"
+        android:layout_height="55dp"
+        android:text=""
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/deleteBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/repsLabel"
+        app:layout_constraintTop_toBottomOf="@id/setsInput" />
+
+    <Button
+        android:id="@+id/setBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/set"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/repsLabel"
+        app:layout_constraintStart_toEndOf="@+id/deleteBtn"/>
+
+    <Button
+        android:id="@+id/deleteBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/delete"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/repsLabel"
+        app:layout_constraintEnd_toStartOf="@+id/setBtn"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,52 +14,54 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class ExerciseTypeAdapter extends RecyclerView.Adapter<ExerciseTypeAdapter.ViewHolder> {
-    private ArrayList<ExerciseTypeClass> localDataSet;
+public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHolder> {
+    private ArrayList<ExerciseClass> localDataSet;
     private WorkoutDayClass workoutDay;
     private MuscleClass muscleType;
+    private ExerciseTypeClass exerciseType;
     private ActivityResultLauncher<Intent> activityResultLauncher;
 
     /**
      * Initialize the dataset of the Adapter.
      *
      */
-    public ExerciseTypeAdapter(ArrayList<ExerciseTypeClass> dataSet, WorkoutDayClass workoutDay,
-                             MuscleClass muscleType,
-                             ActivityResultLauncher<Intent> activityResultLauncher) {
+    public ExerciseAdapter(ArrayList<ExerciseClass> dataSet, WorkoutDayClass workoutDay,
+                               MuscleClass muscleType, ExerciseTypeClass exerciseType,
+                           ActivityResultLauncher<Intent> activityResultLauncher) {
         this.localDataSet = dataSet;
         this.workoutDay = workoutDay;
         this.muscleType = muscleType;
+        this.exerciseType = exerciseType;
         this.activityResultLauncher= activityResultLauncher;
     }
 
     // Create new views (invoked by the layout manager)
     @NonNull
     @Override
-    public ExerciseTypeAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public ExerciseAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view, which defines the UI of the list item
         View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.activity_adapter_exercise_type, viewGroup, false);
-        return new ExerciseTypeAdapter.ViewHolder(view);
+                .inflate(R.layout.activity_adapter_exercise, viewGroup, false);
+        return new ExerciseAdapter.ViewHolder(view);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        holder.exerciseTypeLabel.setText(localDataSet.get(position).getExerciseType());
-        holder.editBtn.setOnClickListener(view -> {
-            Intent i = new Intent(holder.context, EditExerciseTypeActivity.class);
-            i.putExtra(holder.WORKOUT_DAY_KEY, workoutDay);
-            i.putExtra(holder.WORKOUT_MUSCLE_KEY, muscleType);
-            i.putExtra(holder.EXERCISE_TYPE_KEY, localDataSet.get(position));
-            activityResultLauncher.launch(i);
-        });
+        String name = "Exercise: " + localDataSet.get(position).getName();
+        holder.nameLabel.setText(name);
+        String weight = "Weight: " + localDataSet.get(position).getWeight();
+        holder.weightLabel.setText(weight);
+        String setsReps = "SetsxReps: " + localDataSet.get(position).getSets() + "x"
+                + localDataSet.get(position).getReps();
+        holder.setsRepsLabel.setText(setsReps);
 
-        holder.continueBtn.setOnClickListener(view -> {
-            Intent i = new Intent(holder.context, ExerciseActivity.class);
+        holder.editBtn.setOnClickListener(view -> {
+            Intent i = new Intent(holder.context, EditExerciseActivity.class);
             i.putExtra(holder.WORKOUT_DAY_KEY, workoutDay);
             i.putExtra(holder.WORKOUT_MUSCLE_KEY, muscleType);
-            i.putExtra(holder.EXERCISE_TYPE_KEY, localDataSet.get(position));
+            i.putExtra(holder.EXERCISE_TYPE_KEY, exerciseType);
+            i.putExtra(holder.EXERCISE_KEY, localDataSet.get(position));
             activityResultLauncher.launch(i);
         });
     }
@@ -75,24 +77,29 @@ public class ExerciseTypeAdapter extends RecyclerView.Adapter<ExerciseTypeAdapte
      * (custom ViewHolder).
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView exerciseTypeLabel;
-        private Button continueBtn;
+        private final TextView nameLabel;
+        private final TextView weightLabel;
+        private final TextView setsRepsLabel;
         private Button editBtn;
         private String WORKOUT_DAY_KEY;
         private String WORKOUT_MUSCLE_KEY;
         private String EXERCISE_TYPE_KEY;
+        private String EXERCISE_KEY;
         private Context context;
 
         public ViewHolder(View view) {
             super(view);
             // Define click listener for the ViewHolder's View
-            exerciseTypeLabel = view.findViewById(R.id.exerciseType);
+            nameLabel = view.findViewById(R.id.exerciseName);
+            weightLabel = view.findViewById(R.id.exerciseWeight);
+            setsRepsLabel = view.findViewById(R.id.exerciseSetsReps);
             editBtn = view.findViewById(R.id.editBtn);
-            continueBtn = view.findViewById(R.id.continueBtn);
             WORKOUT_DAY_KEY = view.getContext().getString(R.string.WORKOUT_DAY_KEY);
             WORKOUT_MUSCLE_KEY = view.getContext().getString(R.string.WORKOUT_MUSCLE_KEY);
             EXERCISE_TYPE_KEY = view.getContext().getString(R.string.EXERCISE_TYPE_KEY);
+            EXERCISE_KEY = view.getContext().getString(R.string.EXERCISE_KEY);
             context = view.getContext();
         }
     }
 }
+
