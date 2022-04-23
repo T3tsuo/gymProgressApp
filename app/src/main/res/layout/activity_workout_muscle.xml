@@ -22,7 +22,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/muscle_type"
+        android:text=""
         android:textAlignment="center"
         android:textSize="40sp"
         app:layout_constraintBottom_toTopOf="@+id/muscleRecycleView"

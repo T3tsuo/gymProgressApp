@@ -23,10 +23,7 @@
     <string name="yes">Yes</string>
     <string name="edit">Edit</string>
     <string name="muscle_group">Muscle group:</string>
-    <string name="muscle_type">Muscle Type</string>
-    <string name="exercise_group">Exercise group</string>
     <string name="exercise_type">Exercise Type:</string>
-    <string name="exercises">Exercises</string>
     <string name="name">Name:</string>
     <string name="weight">Weight:</string>
     <string name="sets">Sets:</string>

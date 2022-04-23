@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
@@ -50,6 +51,9 @@ public class ExerciseTypeActivity extends AppCompatActivity {
         workoutDay = (WorkoutDayClass) intent.getSerializableExtra(getString(R.string.WORKOUT_DAY_KEY));
         muscleType = (MuscleClass)
                 intent.getSerializableExtra(getString(R.string.WORKOUT_MUSCLE_KEY));
+        TextView title = findViewById(R.id.textView);
+        String titleText = muscleType.getMuscleType() + " Equipment";
+        title.setText(titleText);
         initFB();
         getExerciseTypes();
 
