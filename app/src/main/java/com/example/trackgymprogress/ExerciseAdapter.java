@@ -48,7 +48,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        String name = "Exercise: " + localDataSet.get(position).getName();
+        String name = localDataSet.get(position).getName();
         holder.nameLabel.setText(name);
         String weight = "Weight: " + localDataSet.get(position).getWeight();
         holder.weightLabel.setText(weight);
