@@ -68,7 +68,7 @@
 
     <EditText
         android:id="@+id/setsInput"
-        android:inputType="text"
+        android:inputType="number"
         android:layout_width="171dp"
         android:layout_height="55dp"
         android:text=""
@@ -92,7 +92,7 @@
 
     <EditText
         android:id="@+id/repsInput"
-        android:inputType="text"
+        android:inputType="number"
         android:layout_width="171dp"
         android:layout_height="55dp"
         android:text=""
