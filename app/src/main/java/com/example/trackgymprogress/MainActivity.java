@@ -2,8 +2,11 @@ package com.example.trackgymprogress;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.widget.Button;
@@ -19,6 +22,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
@@ -62,13 +66,15 @@ public class MainActivity extends AppCompatActivity {
         FBDatabase = FirebaseDatabase.getInstance(getString(R.string.FIREBASE_URL));
         allDB = FBDatabase.getReference();
         String jsonString = readFromFile("workout_data_backup.txt");
-        Map<String, Object> jsonMap = new Gson().fromJson(jsonString,
-                new TypeToken<HashMap<String, Object>>() {}.getType());
-        allDB.updateChildren(jsonMap);
+        if (!jsonString.equals("")) {
+            Map<String, Object> jsonMap = new Gson().fromJson(jsonString,
+                    new TypeToken<HashMap<String, Object>>() {}.getType());
+            allDB.updateChildren(jsonMap);
+        }
     }
 
     public String readFromFile(String fileName) {
-        File path = getApplicationContext().getFilesDir();
+        File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);;
         File readFrom = new File(path, fileName);
         byte[] content = new byte[(int) readFrom.length()];
         try {
@@ -78,8 +84,9 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Restored", Toast.LENGTH_SHORT).show();
             return new String(content);
         } catch (IOException e) {
+            Toast.makeText(this, "Allow all files management in Permissions", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
-            return e.toString();
+            return "";
         }
     }
 
@@ -102,13 +109,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void writeToFile(String fileName, String content) {
-        File path = getApplicationContext().getFilesDir();
+        File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);;
         try {
             FileOutputStream writer = new FileOutputStream(new File(path, fileName));
             writer.write(content.getBytes());
             writer.close();
-            Toast.makeText(this, "Backed up", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Saved to Downloads Folder", Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
+            Toast.makeText(this, "Allow all files management in Permissions", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
     }
