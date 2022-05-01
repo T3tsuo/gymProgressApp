@@ -28,4 +28,6 @@
     <string name="sets">Sets:</string>
     <string name="reps">Reps:</string>
     <string name="equipment">Equipment:</string>
+    <string name="download_backup">Download Backup</string>
+    <string name="restore_backup">Restore Backup</string>
 </resources>
