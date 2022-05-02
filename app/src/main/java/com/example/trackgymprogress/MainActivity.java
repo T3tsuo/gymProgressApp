@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Restored", Toast.LENGTH_SHORT).show();
             return new String(content);
         } catch (IOException e) {
-            Toast.makeText(this, "Allow all files management in Permissions", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Error: Could not find file", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
             return "";
         }
