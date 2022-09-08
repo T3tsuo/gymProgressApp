@@ -29,6 +29,7 @@ public class WorkoutMuscleActivity extends AppCompatActivity {
 
     private FirebaseDatabase FBDatabase;
     Query muscleDatabase;
+    private DatabaseReference allDB;
     private WorkoutDayClass workoutDay;
     private MuscleTypeAdapter adapter;
     private ActivityResultLauncher<Intent> activityResultLauncher;

@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initDB();
+
         workoutDay = new WorkoutDayClass();
         Button pushBtn = findViewById(R.id.pushBtn);
         Button pullBtn = findViewById(R.id.pullBtn);
@@ -62,8 +64,13 @@ public class MainActivity extends AppCompatActivity {
         restoreBtn.setOnClickListener(view -> restoreAllWorkouts());
     }
 
+    public void initDB() {
+        FBDatabase = FirebaseDatabase.getInstance();
+        FBDatabase.setPersistenceEnabled(true);
+        FBDatabase.getReference().keepSynced(true);
+    }
+
     public void restoreAllWorkouts() {
-        FBDatabase = FirebaseDatabase.getInstance(getString(R.string.FIREBASE_URL));
         allDB = FBDatabase.getReference();
         String jsonString = readFromFile("workout_data_backup.txt");
         if (!jsonString.equals("")) {
@@ -74,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public String readFromFile(String fileName) {
-        File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);;
+        File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
         File readFrom = new File(path, fileName);
         byte[] content = new byte[(int) readFrom.length()];
         try {
@@ -91,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getAllWorkouts() {
-        FirebaseDatabase FBDatabase = FirebaseDatabase.getInstance(getString(R.string.FIREBASE_URL));
         allDB = FBDatabase.getReference();
         allDB.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -109,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void writeToFile(String fileName, String content) {
-        File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);;
+        File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
         try {
             FileOutputStream writer = new FileOutputStream(new File(path, fileName));
             writer.write(content.getBytes());
