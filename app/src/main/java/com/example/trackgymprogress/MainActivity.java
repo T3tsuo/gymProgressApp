@@ -67,11 +67,11 @@ public class MainActivity extends AppCompatActivity {
     public void initDB() {
         FBDatabase = FirebaseDatabase.getInstance();
         FBDatabase.setPersistenceEnabled(true);
-        FBDatabase.getReference().keepSynced(true);
+        allDB = FBDatabase.getReference();
+        allDB.keepSynced(true);
     }
 
     public void restoreAllWorkouts() {
-        allDB = FBDatabase.getReference();
         String jsonString = readFromFile("workout_data_backup.txt");
         if (!jsonString.equals("")) {
             Map<String, Object> jsonMap = new Gson().fromJson(jsonString,
@@ -98,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getAllWorkouts() {
-        allDB = FBDatabase.getReference();
         allDB.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
